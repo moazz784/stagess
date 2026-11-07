@@ -16,44 +16,46 @@ import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
 import VerifyEmailPage from "./pages/VerifyEmailPage.jsx";
 
 function NotFoundPage() {
-	return (
-		<main className="container narrow-page">
-			<div className="empty-state">
-				<span className="eyebrow">404</span>
-				<h1>عذرًا، لم نعثر على هذه الصفحة</h1>
-				<p>قد يكون الرابط غير صحيح أو أن الصفحة لم تعد متاحة.</p>
-				<a className="button button-primary" href="/">
-					العودة إلى الرئيسية
-				</a>
-			</div>
-		</main>
-	);
+    return (
+        <main className="container narrow-page">
+            <div className="empty-state">
+                <span className="eyebrow">404</span>
+                <h1>عذرًا، لم نعثر على هذه الصفحة</h1>
+                <p>قد يكون الرابط غير صحيح أو أن الصفحة لم تعد متاحة.</p>
+                <a className="button button-primary" href="/">
+                    العودة إلى الرئيسية
+                </a>
+            </div>
+        </main>
+    );
 }
 
 const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <SiteLayout />,
-		children: [
-			{ index: true, element: <HomePage /> },
-			{ path: "courses", element: <CoursesPage /> },
-			{ path: "courses/:courseId", element: <CourseDetailsPage /> },
-			{ path: "about", element: <AboutPage /> },
-			{ path: "contact", element: <ContactPage /> },
-			{ path: "login", element: <LoginPage /> },
-			{ path: "register", element: <RegisterPage /> },
-			{ path: "instructor", element: <InstructorPage /> },
-			{ path: "forgot-password", element: <ForgotPasswordPage /> },
-			{ path: "verify-email", element: <VerifyEmailPage /> },
-			{ path: "reset-password", element: <ResetPasswordPage /> },
-			{ path: "student/dashboard", element: <AuthGuard roles={["Student"]}><DashboardPage /></AuthGuard> },
-			{ path: "instructor/dashboard", element: <AuthGuard roles={["Instructor"]}><DashboardPage /></AuthGuard> },
-			{ path: "admin/dashboard", element: <AuthGuard roles={["Admin"]}><DashboardPage /></AuthGuard> },
-			{ path: "*", element: <NotFoundPage /> },
-		],
-	},
-]);
+    {
+        path: "/",
+        element: <SiteLayout />,
+        children: [
+            { index: true, element: <HomePage /> },
+            { path: "courses", element: <CoursesPage /> },
+            { path: "courses/:courseId", element: <CourseDetailsPage /> },
+            { path: "about", element: <AboutPage /> },
+            { path: "contact", element: <ContactPage /> },
+            { path: "login", element: <LoginPage /> },
+            { path: "register", element: <RegisterPage /> },
+            { path: "instructor", element: <InstructorPage /> },
+            { path: "forgot-password", element: <ForgotPasswordPage /> },
+            { path: "verify-email", element: <VerifyEmailPage /> },
+            { path: "reset-password", element: <ResetPasswordPage /> },
+            { path: "student/dashboard", element: <AuthGuard roles={["Student"]}><DashboardPage /></AuthGuard> },
+            { path: "instructor/dashboard", element: <AuthGuard roles={["Instructor"]}><DashboardPage /></AuthGuard> },
+            { path: "admin/dashboard", element: <AuthGuard roles={["Admin"]}><DashboardPage /></AuthGuard> },
+            { path: "*", element: <NotFoundPage /> },
+        ],
+    },
+], {
+    basename: "/stagess/",
+});
 
 export default function App() {
-	return <AuthProvider><RouterProvider router={router} /></AuthProvider>;
+    return <AuthProvider><RouterProvider router={router} /></AuthProvider>;
 }
