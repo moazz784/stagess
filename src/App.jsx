@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import AuthGuard from "./auth/AuthGuard.jsx";
 import { AuthProvider } from "./auth/AuthContext.jsx";
 import SiteLayout from "./layouts/SiteLayout.jsx";
@@ -22,9 +22,9 @@ function NotFoundPage() {
                 <span className="eyebrow">404</span>
                 <h1>عذرًا، لم نعثر على هذه الصفحة</h1>
                 <p>قد يكون الرابط غير صحيح أو أن الصفحة لم تعد متاحة.</p>
-                <a className="button button-primary" href="/">
+                <Link className="button button-primary" to="/">
                     العودة إلى الرئيسية
-                </a>
+                </Link>
             </div>
         </main>
     );
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
         ],
     },
 ], {
-    basename: "/stagess/",
+    basename: import.meta.env.BASE_URL,
 });
 
 export default function App() {

@@ -7,7 +7,7 @@ export default function BrandLogo({ className = "" }) {
 			to="/"
 			aria-label="منصة كلية كمبيرج الدولية للدراسات المهنية، الصفحة الرئيسية"
 		>
-			<img className="brand-logo" src="/cambridge-college-logo.jpg" alt="" />
+			<img className="brand-logo" src={`${import.meta.env.BASE_URL}cambridge-college-logo.jpg`} alt="" />
 			<span className="brand-name">
 				<span>منصة كلية كمبيرج الدولية</span>
 				<span>للدراسات المهنية</span>
