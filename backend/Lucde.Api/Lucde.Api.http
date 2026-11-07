@@ -1,0 +1,124 @@
+@baseUrl = http://localhost:5195
+@email = learner@example.test
+@password = ChangeThisPassword123
+@accessToken = replace-with-access-token-from-login
+@userId = replace-with-user-guid
+
+### Health
+GET {{baseUrl}}/health
+
+### Register a student (email verification URL is logged only in Development)
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "Test Learner",
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Confirm email (copy userId and token from the Development email log)
+POST {{baseUrl}}/api/auth/confirm-email
+Content-Type: application/json
+
+{
+  "userId": "{{userId}}",
+  "token": "replace-with-url-decoded-token"
+}
+
+### Resend email confirmation
+POST {{baseUrl}}/api/auth/resend-confirmation
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+### Login (stores the HttpOnly refresh cookie in REST Client)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Rotate refresh token (uses the login cookie)
+POST {{baseUrl}}/api/auth/refresh
+
+### Current account (requires Bearer access token)
+GET {{baseUrl}}/api/account/me
+Authorization: Bearer {{accessToken}}
+
+### Student dashboard
+GET {{baseUrl}}/api/student/dashboard
+Authorization: Bearer {{accessToken}}
+
+### Get own student profile
+GET {{baseUrl}}/api/student/profile
+Authorization: Bearer {{accessToken}}
+
+### Update own student profile
+PUT {{baseUrl}}/api/student/profile
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "displayName": "Test Learner",
+  "bio": "Learning software development."
+}
+
+### Own notifications
+GET {{baseUrl}}/api/account/notifications
+Authorization: Bearer {{accessToken}}
+
+### Instructor dashboard (requires Instructor role)
+GET {{baseUrl}}/api/instructor/dashboard
+Authorization: Bearer {{accessToken}}
+
+### Admin dashboard (requires Admin role)
+GET {{baseUrl}}/api/admin/dashboard
+Authorization: Bearer {{accessToken}}
+
+### Admin user list (pageSize 1-100)
+GET {{baseUrl}}/api/admin/users?page=1&pageSize=50
+Authorization: Bearer {{accessToken}}
+
+### Assign a role (Admin only)
+PUT {{baseUrl}}/api/admin/users/{{userId}}/role
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "role": "Instructor"
+}
+
+### Deactivate a user (Admin only)
+PUT {{baseUrl}}/api/admin/users/{{userId}}/active
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "isActive": false
+}
+
+### Request password reset (response does not disclose whether the account exists)
+POST {{baseUrl}}/api/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+### Reset password (copy token from Development email log)
+POST {{baseUrl}}/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "token": "replace-with-url-decoded-token",
+  "newPassword": "NewStrongPassword123"
+}
+
+### Logout and revoke current refresh cookie
+POST {{baseUrl}}/api/auth/logout
